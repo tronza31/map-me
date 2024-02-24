@@ -25,9 +25,26 @@ class MessageBox
 
 function AddTextContainer()
 {
-    const CONTAINER_CLASS = "container";
-    const MESSAGE = "message";
+    if ("geolocation" in navigator)
+    {
+        navigator.geolocation.getCurrentPosition(
+            function (position)
+            {
+                console.log(position);
 
-    let messageBox = new MessageBox(CONTAINER_CLASS, MESSAGE);
-    messageBox.PrintMessage();
+                const CONTAINER_CLASS = "container";
+                const MESSAGE = `${position.coords.latitude}, ${position.coords.longitude}`;
+
+                let messageBox = new MessageBox(CONTAINER_CLASS, MESSAGE);
+                messageBox.PrintMessage();
+            },
+            function (err)
+            {
+                alert(err.message);
+            });
+    }
+    else
+    {
+        alert("Включите местоположение");
+    }
 }
