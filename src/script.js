@@ -10,10 +10,16 @@ class MessageBox
     {
         let div = document.getElementsByClassName(this.divId)[0];
 
-        let message = document.createElement("p");
-        message.innerText = this.message;
-
-        div.appendChild(message);
+        if (div !== null && div !== undefined)
+        {
+            let message = document.createElement("p");
+            message.innerText = this.message;
+            div.appendChild(message); 
+        }
+        else
+        {
+            console.log("Container not founded");
+        }
     }
 }
 
