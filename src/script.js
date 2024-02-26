@@ -25,9 +25,9 @@ class MessageBox
 
 function AddTextContainer()
 {
-    if ("geolocation" in navigator)
+    if (navigator.geolocation)
     {
-        navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.watchPosition(
             function (position)
             {
                 console.log(position);
@@ -40,11 +40,11 @@ function AddTextContainer()
             },
             function (err)
             {
-                alert(err.message);
+                alert('Вы запретили местоположение');
             });
     }
     else
     {
-        alert("Включите местоположение");
+        alert("У Вас отстутсвует местоположение");
     }
 }
