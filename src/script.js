@@ -21,17 +21,15 @@ function AddTextContainer() {
   if (navigator.geolocation) {
     navigator.geolocation.watchPosition(
       function (position) {
-        console.log(position);
-
         const CONTAINER_CLASS = "container";
         const MESSAGE = `${position.coords.latitude}, ${position.coords.longitude}`;
-
+        console.log(position);
         let messageBox = new MessageBox(CONTAINER_CLASS, MESSAGE);
         messageBox.PrintMessage();
       },
-      function (err) {
+      function (error) {
         alert("Вы запретили местоположение");
-      }
+      },
     );
   } else {
     alert("У Вас отстутсвует местоположение");
@@ -52,10 +50,10 @@ function ChangeButtonColor() {
   }
 }
 
+
 function StartBC() {
   ChangeButtonColor(); // Change color
   AddTextContainer(); // Call AddTextContainer
-  // Remove eve4nt (use StopBC)
   let GetButton = document.getElementById("GetButton");
   GetButton.removeEventListener("click", StartBC);
   GetButton.addEventListener("click", StopBC);
@@ -63,14 +61,15 @@ function StartBC() {
 }
 
 function StopBC() {
-  ChangeButtonColor(); //ChangeButtonColor();
+  ChangeButtonColor();
+  navigator.geolocation.clearWatch(AddTextContainer); //ChangeButtonColor();
   let GetButton = document.getElementById("GetButton");
-  GetButton.addEventListener("click", StartBC);
   GetButton.removeEventListener("click", StopBC);
+  GetButton.addEventListener("click", StartBC);
   alert("Вы остановили отслеживание");
-  // Call STOP AddTextContainer
-  // Remove event (use StartBC)
 }
+
+
 
 let GetButton = document.getElementById("GetButton");
 GetButton.addEventListener("click", StartBC);
