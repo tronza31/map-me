@@ -35,13 +35,12 @@ function AddTextContainer()
         const CONTAINER_CLASS = "container";
         const MESSAGE = `${position.coords.latitude}, ${position.coords.longitude}`;
 
-        console.log(position);
-
         let messageBox = new MessageBox(CONTAINER_CLASS, MESSAGE);
         messageBox.PrintMessage();
       },
       function (error)
       {
+        console.log(error);
         alert("Вы запретили местоположение");
       },
     );
@@ -84,7 +83,10 @@ function StopGeoCoordinateWatching()
   buttonHtml.removeEventListener("click", StopGeoCoordinateWatching);
   buttonHtml.addEventListener("click", StartGeoCoordinateWatching);
   ChangeButtonColor();
-  navigator.geolocation.clearWatch(watchId);
+  if (watchId !== null)
+  {
+    navigator.geolocation.clearWatch(watchId);
+  }
   alert("Watching was stop");
 }
 
