@@ -23,6 +23,31 @@ class MessageBox
 	}
 }
 
+class Map
+{
+	constructor(divId)
+	{
+		this.divId = divId;
+	}
+
+	InitMap()
+	{
+		navigator.geolocation.getCurrentPosition(
+			function (currentPosition)
+			{
+				var yandexMap = new ymaps.Map("map-container",
+					{
+						center: [currentPosition.coords.latitude, currentPosition.coords.longitude],
+						zoom: 15
+					}
+				);
+
+				yandexMap.setType('yandex#map');
+			}
+		);
+	}
+}
+
 class CoordsContainer
 {
 	constructor()
@@ -54,6 +79,7 @@ function AddTextContainer()
 			{
 				const CONTAINER_CLASS = "container";
 				const MESSAGE = `${position.coords.latitude}, ${position.coords.longitude}`;
+
 
 				contain = new CoordsContainer();
 				contain.AddCoord(MESSAGE);
@@ -111,7 +137,12 @@ function StopGeoCoordinateWatching()
 		navigator.geolocation.clearWatch(watchId);
 	}
 	alert("Watching was stop");
+
 	console.log(contain.array);
 }
 
 buttonHtml.addEventListener("click", StartGeoCoordinateWatching);
+
+const MAP_DIV_ID = "map-container";
+let myMap = new Map(MAP_DIV_ID);
+ymaps.ready(myMap.InitMap);
