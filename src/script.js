@@ -12,7 +12,6 @@ class MessageBox
 
 		if (div !== null && div !== undefined)
 		{
-
 			let message = document.createElement("p");
 			message.innerText = this.message;
 			div.appendChild(message);
@@ -33,10 +32,13 @@ class CoordsContainer
 
 	AddCoord(coord)
 	{
-		if (this.array.lastIndexOf[0] !== coord)
+		if ( this.array === coord)
 		{
-			console.log(coord);
-			this.array.push(coord);
+			console.log("Пошевелитес!")
+		} else 
+		{
+			console.log("Вы шевельнулис " + coord);
+			return coord;
 		}
 	}
 }
